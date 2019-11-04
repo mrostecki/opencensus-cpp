@@ -50,6 +50,26 @@ http_archive(
     urls = ["https://github.com/grpc/grpc/archive/809e7c951358a80182d7126b255c3a40881fb3fa.zip"],  # 2019-07-23T00:43:25Z
 )
 
+local_repository(
+    name = "submodule_grpc",
+    path = "/usr/src/grpc",
+)
+
+local_repository(
+    name = "build_bazel_apple_support",
+    path = "/usr/src/bazel-apple-support",
+)
+
+local_repository(
+    name = "build_bazel_rules_apple",
+    path = "/usr/src/bazel-rules-apple",
+)
+
+local_repository(
+    name = "rules_proto",
+    path = "/usr/src/bazel-rules-proto",
+)
+
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
 
 grpc_deps()
@@ -67,11 +87,6 @@ http_archive(
     strip_prefix = "prometheus-cpp-d83dd68e496e024ae0f1f0c19ac2ab0d27330330",
     urls = ["https://github.com/jupp0r/prometheus-cpp/archive/d83dd68e496e024ae0f1f0c19ac2ab0d27330330.zip"],  # 2019-07-03T18:56:43Z
 )
-
-load("@com_github_jupp0r_prometheus_cpp//:repositories.bzl", "load_civetweb")
-
-# Load Prometheus dependencies individually since we load some of them above.
-load_civetweb()
 
 # Curl library - used by zipkin exporter.
 http_archive(
